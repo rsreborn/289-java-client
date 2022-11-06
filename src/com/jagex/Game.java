@@ -247,7 +247,7 @@ public class Game extends Applet_Sub1
         58654, 5027, 1457, 16565, 34991, 25486
     };
     public String aStringArray1044[];
-    public static BigInteger aBigInteger1045 = new BigInteger("58778699976184461502525193738213253649000149147835990136706041084440742975821");
+    public static BigInteger rsaKey = new BigInteger("58778699976184461502525193738213253649000149147835990136706041084440742975821");
     public static int anInt1046;
     public static Class44_Sub3_Sub4_Sub6_Sub1 aClass44_Sub3_Sub4_Sub6_Sub1_1047;
     public long aLong1048;
@@ -355,7 +355,7 @@ public class Game extends Applet_Sub1
     public Class44_Sub3_Sub2 aClass44_Sub3_Sub2_1132;
     public int anIntArray1133[];
     public int anIntArray1134[];
-    public static BigInteger aBigInteger1135 = new BigInteger("7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
+    public static BigInteger rsaModulus = new BigInteger("7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
     public Class44_Sub3_Sub1_Sub3 aClass44_Sub3_Sub1_Sub3_1136;
     public Class44_Sub3_Sub1_Sub3 aClass44_Sub3_Sub1_Sub3_1137;
     public Class44_Sub3_Sub1_Sub3 aClass44_Sub3_Sub1_Sub3_1138;
@@ -528,6 +528,7 @@ public class Game extends Applet_Sub1
             aBoolean1234 = true;
         }
         method2(true, 765, 503);
+        loadRSAKeys();
     }
 
     public void method7(int i)
@@ -6085,6 +6086,7 @@ public class Game extends Applet_Sub1
             Signlink.startpriv(InetAddress.getLocalHost());
             Game client1 = new Game();
             client1.method1(503, 765, 0);
+            client1.loadRSAKeys();
             return;
         }
         catch(Exception exception)
@@ -9516,7 +9518,7 @@ public class Game extends Applet_Sub1
                 aClass44_Sub3_Sub2_850.method476(Signlink.uid);
                 aClass44_Sub3_Sub2_850.method479(s);
                 aClass44_Sub3_Sub2_850.method479(s1);
-                aClass44_Sub3_Sub2_850.method497(aBigInteger1135, aBigInteger1045, 0);
+                aClass44_Sub3_Sub2_850.encrypt(rsaKey, rsaModulus);
                 aClass44_Sub3_Sub2_822.anInt1392 = 0;
                 if(flag)
                 {
@@ -14169,6 +14171,22 @@ public class Game extends Applet_Sub1
             Signlink.reporterror("90622, " + i + ", " + j + ", " + k + ", " + runtimeexception.toString());
         }
         throw new RuntimeException();
+    }
+
+    private void loadRSAKeys() {
+        try {
+            // final ObjectInputStream oin = new ObjectInputStream(new FileInputStream("./data/public.key"));
+            InputStream is = getClass().getResourceAsStream("/data/public.key");
+            if (is == null) {
+                is = new FileInputStream("./data/public.key");
+            }
+            final ObjectInputStream oin = new ObjectInputStream(is);
+            rsaModulus = (BigInteger) oin.readObject();
+            rsaKey = (BigInteger) oin.readObject();
+        } catch (final Exception ex) {
+            System.err.println("Cannot find public RSA key file! Shutting down...");
+            System.exit(1);
+        }
     }
 
     public void method138(int i, byte byte0, int j, int k, int l, int i1, int j1)

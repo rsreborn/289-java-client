@@ -518,30 +518,18 @@ public class Class44_Sub3_Sub2 extends Class44_Sub3
         }
     }
 
-    public void method497(BigInteger biginteger, BigInteger biginteger1, int i)
+    public void encrypt(BigInteger key, BigInteger modulus)
     {
-        try
-        {
-            int j = anInt1392;
-            anInt1392 = 0;
-            byte abyte0[] = new byte[j];
-            method491((byte)95, abyte0, 0, j);
-            BigInteger biginteger2 = new BigInteger(abyte0);
-            BigInteger biginteger3 = biginteger2.modPow(biginteger1, biginteger);
-            byte abyte1[] = biginteger3.toByteArray();
-            anInt1392 = 0;
-            method472(abyte1.length);
-            method480(abyte1, abyte1.length, 0, true);
-            if(i < 0 || i > 0)
-            {
-                return;
-            }
-        }
-        catch(RuntimeException runtimeexception)
-        {
-            Signlink.reporterror("81066, " + biginteger + ", " + biginteger1 + ", " + i + ", " + runtimeexception.toString());
-            throw new RuntimeException();
-        }
+        int j = anInt1392;
+        anInt1392 = 0;
+        byte abyte0[] = new byte[j];
+        method491((byte)95, abyte0, 0, j);
+        BigInteger biginteger2 = new BigInteger(abyte0);
+        BigInteger biginteger3 = biginteger2.modPow(key, modulus);
+        byte abyte1[] = biginteger3.toByteArray();
+        anInt1392 = 0;
+        method472(abyte1.length);
+        method480(abyte1, abyte1.length, 0, true);
     }
 
     static
