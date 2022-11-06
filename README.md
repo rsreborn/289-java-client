@@ -1,1 +1,1 @@
-# 289-java-com.jagex.Game
+# 289-java-client
